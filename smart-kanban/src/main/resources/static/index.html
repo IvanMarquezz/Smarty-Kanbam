@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Kanban</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <h1>🧠 Smart Kanban</h1>
+    <div class="topo-acoes">
+      <button id="btn-desfazer" class="btn" disabled title="Desfazer (Ctrl+Z)">↩ Desfazer <span id="contador-pilha" class="badge-pilha">0</span></button>
+      <button id="btn-nova" class="btn btn-primario">+ Nova tarefa</button>
+    </div>
+  </header>
+  <p id="info-desfazer" class="info-desfazer"></p>
+
+  <main class="quadro">
+    <section class="coluna" data-status="A_FAZER">
+      <h2>A FAZER <span class="contador" id="cont-A_FAZER">0</span></h2>
+      <div class="lista" id="lista-A_FAZER"></div>
+    </section>
+    <section class="coluna" data-status="EM_ANDAMENTO">
+      <h2>EM ANDAMENTO <span class="contador" id="cont-EM_ANDAMENTO">0</span></h2>
+      <div class="lista" id="lista-EM_ANDAMENTO"></div>
+    </section>
+    <section class="coluna" data-status="CONCLUIDA">
+      <h2>CONCLUÍDAS <span class="contador" id="cont-CONCLUIDA">0</span></h2>
+      <div class="lista" id="lista-CONCLUIDA"></div>
+    </section>
+  </main>
+
+  <!-- Formulário criar/editar -->
+  <dialog id="dlg-form">
+    <form id="form-tarefa" method="dialog">
+      <h3 id="form-titulo">Nova tarefa</h3>
+      <label>Título *
+        <input id="f-titulo" type="text" maxlength="120" required>
+      </label>
+      <label>Descrição
+        <textarea id="f-descricao" rows="4" maxlength="2000"></textarea>
+      </label>
+      <div class="linha">
+        <label>Prioridade
+          <select id="f-prioridade">
+            <option value="BAIXA">Baixa</option>
+            <option value="MEDIA" selected>Média</option>
+            <option value="ALTA">Alta</option>
+          </select>
+        </label>
+        <label>Prazo
+          <input id="f-prazo" type="date">
+        </label>
+      </div>
+      <label class="check" id="lbl-ia-apos"><input id="f-ia-apos" type="checkbox"> ✨ Planejar com IA após salvar</label>
+      <div class="rodape">
+        <button type="button" class="btn" id="f-cancelar">Cancelar</button>
+        <button type="submit" class="btn btn-primario">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Detalhes -->
+  <dialog id="dlg-detalhes">
+    <div id="detalhes-corpo"></div>
+    <div class="rodape">
+      <button class="btn" id="d-ia">✨ Planejar com IA</button>
+      <button class="btn btn-primario" id="d-fechar">Fechar</button>
+    </div>
+  </dialog>
+
+  <!-- Auto-planejamento com IA -->
+  <dialog id="dlg-ia">
+    <h3>✨ Auto-Planejamento com IA</h3>
+    <p id="ia-tarefa" class="muted"></p>
+    <div id="ia-conteudo"></div>
+    <div class="rodape">
+      <button class="btn" id="ia-descartar">Descartar</button>
+      <button class="btn btn-primario" id="ia-salvar" hidden>Salvar selecionadas</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="js/app.js"></script>
+</body>
+</html>
